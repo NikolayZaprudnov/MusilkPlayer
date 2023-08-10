@@ -216,17 +216,12 @@ package ru.netology.musikplayer
 //    }
 //}
 
-import android.media.MediaPlayer
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.net.toUri
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.musikplayer.databinding.ActivityMainBinding
-import ru.netology.musikplayer.databinding.OneCompositionBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var albumViewModel: AlbumViewModel
@@ -250,16 +245,11 @@ class MainActivity : AppCompatActivity() {
 
         albumViewModel.tracksLD.observe(this) { tracks ->
             trackAdapter.updateData(tracks)
+            binding.nameAlbum.text = albumViewModel.album?.name
+            binding.executorAlbum.text = albumViewModel.album?.executor
         }
-        var uri = "https://github.com/netology-code/andad-homeworks/raw/master/09_multimedia/data/1.mp3".toUri()
-        binding.album
-            .setOnClickListener{
-            MediaPlayer.create(this, uri  ).apply {
-                setOnCompletionListener {
-                    it.release()
-                }
-            }.start()
-        }
+
+
 
     }
 }

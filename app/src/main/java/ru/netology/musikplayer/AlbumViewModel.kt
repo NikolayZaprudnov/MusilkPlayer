@@ -9,11 +9,12 @@ import org.json.JSONObject
 
 class AlbumViewModel : ViewModel() {
     val tracksLD = MutableLiveData<List<Track>>()
-
+    var album: Album? = null
 
     init {
         loadAlbumData()
     }
+
     private fun loadAlbumData() {
         val url =
             "https://github.com/netology-code/andad-homeworks/raw/master/09_multimedia/data/album.json"
@@ -36,7 +37,7 @@ class AlbumViewModel : ViewModel() {
                     try {
                         val jsonObject = JSONObject(responseBody)
                         val jsonArray = jsonObject.getJSONArray("tracks")
-//                        val album = Album()
+                        album = Album(jsonObject.getString("title"), jsonObject.getString("artist"))
                         val tracks = mutableListOf<Track>()
 
                         for (i in 0 until jsonArray.length()) {
@@ -55,4 +56,4 @@ class AlbumViewModel : ViewModel() {
             }
         })
     }
-  }
+}
