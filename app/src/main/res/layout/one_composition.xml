@@ -13,6 +13,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_play_circle_24" />
+    <ImageButton
+        android:id="@+id/just"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:visibility="invisible"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_play_circle_24" />
+    <ImageButton
+        android:id="@+id/pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_pause_circle_24" />
 
     <ImageButton
         android:id="@+id/previous"
@@ -20,8 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@android:color/transparent"
-        app:layout_constraintStart_toEndOf="@id/play"
-        app:layout_constraintTop_toTopOf="@id/play"
+        app:layout_constraintStart_toEndOf="@id/just"
+        app:layout_constraintTop_toTopOf="@id/just"
         app:srcCompat="@drawable/ic_baseline_previous_24" />
 
     <ImageButton
@@ -31,7 +51,7 @@
         android:layout_margin="16dp"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toEndOf="@id/previous"
-        app:layout_constraintTop_toTopOf="@id/play"
+        app:layout_constraintTop_toTopOf="@id/just"
         app:srcCompat="@drawable/ic_baseline_next_24" />
 
     <TextView
@@ -40,8 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         app:layout_constraintStart_toEndOf="@id/next"
-        app:layout_constraintTop_toBottomOf="@id/play"
-        app:layout_constraintTop_toTopOf="@id/play"
+        app:layout_constraintTop_toBottomOf="@id/just"
+        app:layout_constraintTop_toTopOf="@id/just"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Song Name"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

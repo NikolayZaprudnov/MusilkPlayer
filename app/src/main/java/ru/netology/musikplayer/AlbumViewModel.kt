@@ -1,14 +1,7 @@
 package ru.netology.musikplayer
 
-import android.app.Application
-import android.content.Context
-import android.view.View
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.android.material.snackbar.Snackbar
 import okhttp3.*
 import okio.IOException
 import org.json.JSONException
@@ -23,7 +16,7 @@ class AlbumViewModel : ViewModel() {
     }
     private fun loadAlbumData() {
         val url =
-            "https://github.com/netology-code/andad-homeworks/raw/master/09_multimedia/data/1.mp3"
+            "https://github.com/netology-code/andad-homeworks/raw/master/09_multimedia/data/album.json"
 
         val client = OkHttpClient()
         val request = Request.Builder()
