@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -57,10 +56,10 @@ class TrackAdapter : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
             val trackUri = (uri + track.id + ".mp3")
             compositionNameTextView.text = track.id
             playButton.setOnClickListener {
-               playButton.visibility = View.GONE
+                playButton.visibility = View.GONE
                 pauseButton.visibility = View.VISIBLE
                 mediaObserver.apply {
-                    player.setDataSource(
+                    player?.setDataSource(
                         trackUri
                     )
                 }.play()
@@ -78,9 +77,16 @@ class TrackAdapter : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
 //                        it.release()
 //                    }
 //                }.pause()
-                mediaObserver.onPause()
+                mediaObserver.pause()
             }
             nextButton.setOnClickListener {
+                val nextTrackUri = (uri + ((track.id.toInt() + 1).toString()) + ".mp3")
+                mediaObserver.stop()
+                mediaObserver.apply {
+                    player?.setDataSource(
+                        nextTrackUri
+                    )
+                }.play()
 //                MediaPlayer.create(itemView.context, trackUri).apply {
 //                    setOnCompletionListener {
 //                        it.release()
@@ -94,6 +100,13 @@ class TrackAdapter : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
 //                }.start()
             }
             previousButton.setOnClickListener {
+                val previousTrackUri = (uri + ((track.id.toInt() - 1).toString()) + ".mp3")
+                mediaObserver.stop()
+                mediaObserver.apply {
+                    player?.setDataSource(
+                        previousTrackUri
+                    )
+                }.play()
 //                MediaPlayer.create(itemView.context, trackUri).apply {
 //                    setOnCompletionListener {
 //                        it.release()
@@ -113,17 +126,26 @@ class TrackAdapter : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
     }
 
 }
-class MediaLifecycleObserver : LifecycleObserver{
-    var player: MediaPlayer = MediaPlayer()
-    fun play(){
-        player.setOnPreparedListener{
+
+class MediaLifecycleObserver : LifecycleObserver {
+    var player: MediaPlayer? = MediaPlayer()
+    fun play() {
+        player?.setOnPreparedListener {
             it.start()
         }
-        player.prepareAsync()
+        player?.prepareAsync()
     }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onPause(){
-        player.pause()
+    fun pause() {
+        player?.pause()
     }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun stop() {
+        player?.release()
+        player = null
+    }
+
 
 }
